@@ -35,19 +35,41 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Test Title"),
+        title : const Text("Test title"),
       ),
-      body: Center(
-        child: GestureDetector(
-          onTap: () => print("GesutreDetector used"),
-          child: Container(
-            width: 200,
-            height: 200,
-            color: Colors.amber,
-          )
-        ),
+      body: ListView(
+        children: [
+          postController(title: "title 1", colorData: Colors.yellow),
+          postController(title: "title 2", colorData: Colors.cyan),
+          postController(title: "title 3", colorData: Colors.brown),
+          postController(title: "title 4", colorData: Colors.amber),
+          postController(title: "title 5", colorData: Colors.grey),
+        ],
       )
     );
+  }
 
+
+  Widget postController({String title = "", Color colorData = Colors.blue}){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 200,
+            color: colorData,
+          ),
+      ]
+    );
   }
 }
