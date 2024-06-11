@@ -26,65 +26,50 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+
+
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final postList = [
-    {
-      "title": "Sample Title 1",
-      "color": Colors.green,
-    },
-    {
-      "title": "Sample Title 2",
-      "color": Colors.purple,
-    },    {
-      "title": "Sample Title 3",
-      "color": Colors.amber,
-    },    {
-      "title": "Sample Title 4",
-      "color": Colors.indigo,
-    },    
-  ];
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title : const Text("Test title"),
+        title : const Text("Test Title"),
       ),
-      body: ListView.builder(
-        itemCount: postList.length,
-        itemBuilder: (BuildContext con, int index) {
-          return postContainer(
-            title: postList[index]["title"] as String,
-            colorData: postList[index]["color"] as Color,
-          );
-        },
+      body: GridView(
+//        scrollDirection: Axis.horizontal,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 6,
+          crossAxisSpacing: 15.0,
+          mainAxisSpacing: 12.0,
+        ),
+        children: [
+          postContainer(number: "1", colorData: Colors.white),
+          postContainer(number: "2", colorData: Colors.blueGrey),
+          postContainer(number: "3", colorData: Colors.blue),
+          postContainer(number: "4", colorData: Colors.amber),
+          postContainer(number: "5", colorData: Colors.grey),
+          postContainer(number: "6", colorData: Colors.green),
+          postContainer(number: "7", colorData: Colors.black),
+          postContainer(number: "7", colorData: Colors.black),
+          postContainer(number: "7", colorData: Colors.black),
+          postContainer(number: "7", colorData: Colors.black),
+          postContainer(number: "7", colorData: Colors.black),
+          postContainer(number: "7", colorData: Colors.black),
+          postContainer(number: "7", colorData: Colors.black),
+
+         ],
       )
     );
   }
 
-
-  Widget postContainer({String title = "", Color colorData = Colors.blue}){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            color: colorData,
-          ),
-      ]
-    );
+  Widget postContainer({String number = "a", Color colorData = Colors.amber}) {
+    return Container(
+          height : 200,
+          color: colorData,
+          padding: EdgeInsets.all(20),
+          child: Center(child: Text("Box $number")),
+        );
   }
 }
