@@ -29,58 +29,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var postList = [
-    {
-      "title": "Sample title 1",
-      "color": Colors.green,
-    },
-    {
-      "title": "Sample title 2",
-      "color": Colors.redAccent,
-    },
-    {
-      "title": "Sample title 3",
-      "color": Colors.amber,
-    },
-    {
-      "title": "Sample title 4",
-      "color": Colors.teal,
-    },
-    {
-      "title": "Sample title 5",
-      "color": Colors.blueAccent,
-    },                
-  ];
+  var count = 0;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Test title"),
+        title: Text("Test Title"),
       ),
-      body: GridView(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 15.0,
-          mainAxisSpacing: 12.0,
-          ),
-        children: [
-            postController(number: "1", colorData: Colors.red),          
-            postController(number: "2", colorData: Colors.pink),          
-            postController(number: "3", colorData: Colors.purple),          
-            postController(number: "4", colorData: Colors.green),          
-            postController(number: "5", colorData: Colors.black),          
-            postController(number: "6", colorData: Colors.blue),          
-        ],
-      )
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text("Drawer Header Part"),
+            ),
+            ListTile(
+              title: Text("Menu 1"),
+            ),
+          ],
+      )),
+      body: Container(
+        child: Center(
+          child: Text("COUNT NUMBER: $count"),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() => count++),
+        tooltip: 'Test Tooltip',
+        child: Icon(Icons.mouse),
+      ),  
     );
-    }
-
-  Widget postController({String number = "0", Color colorData = Colors.amber}) {
-    return Container(
-            height: 200,
-            color: colorData,
-            child: Center(child: Text("Box $number")),
-          );
   }
 }
