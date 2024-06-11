@@ -30,8 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var count = 0;
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,19 +49,45 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               title: Text("Menu 1"),
-            ),
+            )
           ],
-      )),
+        )),
       body: Container(
-        child: Center(
-          child: Text("COUNT NUMBER: $count"),
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  color: Colors.red,
+                  height: 200,
+                ),
+                                Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  color: Colors.orange,
+                  height: 200,
+                )
+              ]
+            ),
+            Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  color: Colors.yellow,
+                  height: 200,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  color: Colors.green,
+                  height: 200,
+                )
+              ],
+            )
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() => count++),
-        tooltip: 'Test Tooltip',
-        child: Icon(Icons.mouse),
-      ),  
     );
   }
 }
