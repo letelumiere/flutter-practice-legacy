@@ -35,62 +35,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test Title"),
+        title: const Text("Test Title"),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text("Drawer Header Part"),
-            ),
-            ListTile(
-              title: Text("Menu 1"),
-            ),
-          ],
-        ),
-      ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          alignment: AlignmentDirectional.topStart,
-          children: [
-            Container(
-              width: 200,
-              height: 200,
-              color: Colors.green,
-            ),
-            Container(
-              width: 200,
-              height: 200,
-              margin: EdgeInsets.only(left: 50, top: 50),
-              color: Colors.red,
-            ),
-            Container(
-              width: 200,
-              height: 200,
-              margin: EdgeInsets.only(left: 100, top: 100),
-              color: Colors.blue,
-            ),
-            Container(
-              width: 200,
-              height: 200,
-              margin: EdgeInsets.only(left: 150, top: 150),
-              color: Colors.amber,
-            ),
-            Container(
-              width: 200,
-              height: 200,
-              margin: EdgeInsets.only(left: 200, top: 200),
-              color: Colors.blueGrey,
-            ),                                                
-          ],
+      body: Center(
+        child: GestureDetector(
+          onTap: () => print("GesutreDetector used"),
+          child: Container(
+            width: 200,
+            height: 200,
+            color: Colors.amber,
           )
+        ),
       )
     );
+
   }
 }
