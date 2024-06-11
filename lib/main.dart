@@ -31,45 +31,70 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final postList = [
+    {
+      "number": "1",
+      "color": Colors.amber,
+    },
+    {
+      "number": "2",
+      "color": Colors.deepOrange,
+    },
+    {
+      "number": "3",
+      "color": Colors.blueAccent,
+    },
+    {
+      "number": "4",
+      "color": Colors.greenAccent,
+    },
+    {
+      "number": "5",
+      "color": Colors.yellowAccent,
+    },
+    {
+      "number": "6",
+      "color": Colors.lightBlue,
+    },
+    {
+      "number": "7",
+      "color": Colors.redAccent,
+    },
+    {
+      "number": "8",
+      "color": Colors.cyanAccent,
+    },  
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title : const Text("Test Title"),
       ),
-      body: GridView(
-//        scrollDirection: Axis.horizontal,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 6,
-          crossAxisSpacing: 15.0,
-          mainAxisSpacing: 12.0,
-        ),
-        children: [
-          postContainer(number: "1", colorData: Colors.white),
-          postContainer(number: "2", colorData: Colors.blueGrey),
-          postContainer(number: "3", colorData: Colors.blue),
-          postContainer(number: "4", colorData: Colors.amber),
-          postContainer(number: "5", colorData: Colors.grey),
-          postContainer(number: "6", colorData: Colors.green),
-          postContainer(number: "7", colorData: Colors.black),
-          postContainer(number: "7", colorData: Colors.black),
-          postContainer(number: "7", colorData: Colors.black),
-          postContainer(number: "7", colorData: Colors.black),
-          postContainer(number: "7", colorData: Colors.black),
-          postContainer(number: "7", colorData: Colors.black),
-          postContainer(number: "7", colorData: Colors.black),
-
-         ],
-      )
+      body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 15.0,
+            mainAxisSpacing: 12.0, 
+          ),
+          itemCount: postList.length,
+          itemBuilder: (BuildContext con, int index) {
+            return postContainer(
+              number: postList[index]["number"] as String, 
+              colorData: postList[index]["color"] as Color, 
+            );
+          },
+      ),
     );
   }
 
-  Widget postContainer({String number = "a", Color colorData = Colors.amber}) {
+  Widget postContainer({String number = "0", Color colorData = Colors.amber}) {
     return Container(
           height : 200,
           color: colorData,
           padding: EdgeInsets.all(20),
           child: Center(child: Text("Box $number")),
-        );
+    );
   }
 }
