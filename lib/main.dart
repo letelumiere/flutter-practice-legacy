@@ -49,45 +49,48 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               title: Text("Menu 1"),
-            )
-          ],
-        )),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 2,
-                  color: Colors.red,
-                  height: 200,
-                ),
-                                Container(
-                  width: MediaQuery.of(context).size.width / 2,
-                  color: Colors.orange,
-                  height: 200,
-                )
-              ]
             ),
-            Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 2,
-                  color: Colors.yellow,
-                  height: 200,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 2,
-                  color: Colors.green,
-                  height: 200,
-                )
-              ],
-            )
           ],
         ),
       ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          alignment: AlignmentDirectional.topStart,
+          children: [
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.green,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              margin: EdgeInsets.only(left: 50, top: 50),
+              color: Colors.red,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              margin: EdgeInsets.only(left: 100, top: 100),
+              color: Colors.blue,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              margin: EdgeInsets.only(left: 150, top: 150),
+              color: Colors.amber,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              margin: EdgeInsets.only(left: 200, top: 200),
+              color: Colors.blueGrey,
+            ),                                                
+          ],
+          )
+      )
     );
   }
 }
