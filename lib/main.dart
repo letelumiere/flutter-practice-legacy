@@ -31,9 +31,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String url = 
-    "https://i.namu.wiki/i/AlSuUQ4sVbejb0biO_fPQngK__h41nPHepDRUdWv31-C1mTLlVIoFJU_ku0z5cZ2C-YtNsydw6C7MkunqRYuN_PJXIAmsIAmuCtJzKAFStdx4Oob6kqh-o_-B0_-yjVYrQxNMfD46Cja_on2Pnny0Q.webp";
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +39,23 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("test Title"),
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Image(
-          height: 400,
-          image: NetworkImage(
-            url
-          ),
-          fit: BoxFit.fitHeight,
-  
+        child: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                height: 150,
+                color: Colors.blue,
+              ),
+            ),
+            Flexible(
+              flex: 5,
+              child: Container(
+                height: 150,
+                color: Colors.grey,
+              ),
+            )          
+          ],
         )
       ),
     );
