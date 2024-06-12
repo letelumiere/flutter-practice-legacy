@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -31,9 +27,6 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
-  
-
-
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -85,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               onPressed: () => _saveUsername(),
-              child: Text("save"),
+              child: const Text("save"),
             ),
           ],
         )
