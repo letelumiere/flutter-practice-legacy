@@ -286,7 +286,7 @@ packages:
     source: hosted
     version: "14.2.1"
   youtube_player_flutter:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: youtube_player_flutter
       sha256: "899f1fd15e924eb41150c78c5e2adfd7310100c26b2e1996c148d79e42737d72"
