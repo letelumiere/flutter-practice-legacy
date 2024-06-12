@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,52 +31,65 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+  
 
 
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static Future loadJson() async{
-    final String response = await rootBundle.loadString("lib/users.json");
-    final data = await json.decode(response);
-    return data["users"];
+  late SharedPreferences _prefs;
+  String _username = "";
+  final TextEditingController _usernameController = TextEditingController();
+
+  void initStates() {
+    super.initState();
+    _getUsername();
+  }
+  
+  _saveUsername() {
+    setState((){
+      _username = _usernameController.text;
+      _prefs.setString("currentUsername", _username);
+    });
   }
 
-  Future userList = loadJson();
+  _getUsername() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState((){
+      _username = _prefs.getString("currentUsername") ?? "";  
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("test app"),
+        title: const Text("test App"),
       ),
       body: Container(
-        child: FutureBuilder(
-          future: userList, 
-          builder: (context, snapshot) {
-            if(snapshot.hasData){
-              return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index){
-                  return Container(
-                    padding: const EdgeInsets.all(15),
-                    child: Text(
-                      "${snapshot.data[index]['id']}: ${snapshot.data[index]['username']}"),
-                  );
-                });
-            }else if(snapshot.hasError){
-              return const Center(
-                child: Text("error"));
-            }else{
-              return const Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                )
-              );
-            }
-          }
+        child: Column(
+          children: [
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text("current username : $_username"),
+              ),
+              Container(
+              child: TextField(
+                controller: _usernameController,
+                textAlign: TextAlign.left,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Input your username',
+                ),
+              )
+            ),
+            TextButton(
+              onPressed: () => _saveUsername(),
+              child: Text("save"),
+            ),
+          ],
         )
-      )
+      ),
     );
   }
 }
