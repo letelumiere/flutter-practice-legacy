@@ -31,46 +31,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String url = 
+    "https://i.namu.wiki/i/AlSuUQ4sVbejb0biO_fPQngK__h41nPHepDRUdWv31-C1mTLlVIoFJU_ku0z5cZ2C-YtNsydw6C7MkunqRYuN_PJXIAmsIAmuCtJzKAFStdx4Oob6kqh-o_-B0_-yjVYrQxNMfD46Cja_on2Pnny0Q.webp";
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("test title"),
+        title: const Text("test Title"),
       ),
       body: Container(
-        child: Center(
-          child: TextButton(
-            onPressed: (){
-              showDialog(
-                context: context,
-                builder: (BuildContext con){
-                  return AlertDialog(
-                    title: const Text("Dialog Title"),
-                    content: SingleChildScrollView(
-                      child: Container(
-                        child: const Text(
-                          "Dialog Content",
-                        ),
-                      ),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text("Yes"),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text("Close"),
-                      ),
-                    ],
-                  );
-                }
-              );
-            },
-            child: const Text("Button"),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Image(
+          height: 400,
+          image: NetworkImage(
+            url
           ),
+          fit: BoxFit.fitHeight,
+  
         )
-      )
+      ),
     );
   }
 }
