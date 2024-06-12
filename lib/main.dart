@@ -29,59 +29,74 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  late SharedPreferences _prefs;
-  String _username = "";
-  final TextEditingController _usernameController = TextEditingController();
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  int _selectedIndex = 0;
 
-  void initStates() {
+  @override
+  void initState() {
     super.initState();
-    _getUsername();
-  }
-  
-  _saveUsername() {
-    setState((){
-      _username = _usernameController.text;
-      _prefs.setString("currentUsername", _username);
-    });
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(
+      () => setState(() => _selectedIndex = _tabController.index));
   }
 
-  _getUsername() async {
-    _prefs = await SharedPreferences.getInstance();
-    setState((){
-      _username = _prefs.getString("currentUsername") ?? "";  
-    });
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("test App"),
+        title : const Text("app bar"),
       ),
-      body: Container(
-        child: Column(
-          children: [
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: Text("current username : $_username"),
-              ),
-              Container(
-              child: TextField(
-                controller: _usernameController,
-                textAlign: TextAlign.left,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Input your username',
-                ),
-              )
+      body: _selectedIndex == 0 
+        ? tabContainer(context, Colors.indigo, "Friends Tab")
+        : _selectedIndex == 1
+          ? tabContainer(context, Colors.amber[600] as Color, "Chat Tab")
+          : tabContainer(context, Colors.blueGrey, "Setting Tab"),
+      bottomNavigationBar: SizedBox(
+        height: 90,
+        child: TabBar(
+          controller: _tabController,
+          labelColor: Colors.black,
+          tabs: [
+            Tab(
+              icon: Icon(
+                _selectedIndex ==0 ? Icons.person : Icons.person_2_outlined),
+              text: "Freinds",
             ),
-            TextButton(
-              onPressed: () => _saveUsername(),
-              child: const Text("save"),
+            Tab(
+              icon: Icon(
+                _selectedIndex ==0 ? Icons.chat : Icons.chat_outlined),
+              text: "Chats",
             ),
-          ],
-        )
+            Tab(
+              icon: Icon(
+                _selectedIndex ==0 ? Icons.settings : Icons.settings_outlined),
+              text: "Settings",
+            ),          
+            ],
+        ),
+      )
+    );
+  }
+
+  Widget tabContainer(BuildContext context, Color tabColor, String tabText){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      color: tabColor,
+      child: Center(
+        child: Text(
+          tabText, 
+          style: const TextStyle(
+            color: Colors.white
+            ),
+        ),
       ),
     );
   }
