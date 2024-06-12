@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'second.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -31,43 +33,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("test Title"),
+        title: const Text("Test App"),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  textStyle: const TextStyle(
-                    backgroundColor: Colors.amber,
-                    fontSize:  20,
-                  )
-                ),
-                onPressed: () => print("Elevated Button"),
-                child: const Text("Elevater button"),
-              ),
-            ),
-            Center(
-              child: TextButton(
-                onPressed: () => print("Text Button"),
-                child: const Text("Text button"),
-              ),
-            ),
-            Center(
-              child: OutlinedButton(
-                onPressed: () => print("Outlined Button"),
-                child: const Text("Outlined button"),                
-              ),
-            ),                        
-          ],
-        ),        
-      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () => Navigator.push(context, MaterialPageRoute(
+            builder: (_) => const SecondView(),
+          )),
+          child: Container(
+            padding: const EdgeInsets.all(115),
+            color:  Colors.blueAccent,
+            child: const Text("get Started"),
+          )
+        ),
+      )
     );
   }
 }
