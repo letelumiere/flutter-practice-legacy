@@ -39,23 +39,17 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("test Title"),
       ),
       body: Container(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                height: 150,
-                color: Colors.blue,
-              ),
-            ),
-            Flexible(
-              flex: 5,
-              child: Container(
-                height: 150,
-                color: Colors.grey,
-              ),
-            )          
-          ],
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            colors: [
+              Colors.blue[100] as Color,
+              Colors.blue[300] as Color,
+              Colors.blue[500] as Color,
+            ],
+            radius: 1.0, 
+          ),
         )
       ),
     );
