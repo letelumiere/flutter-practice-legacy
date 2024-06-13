@@ -1,0 +1,29 @@
+{
+    "users":[
+        {
+            "id":1,
+            "username":"simyoung",
+            "email":"goja@red.com"
+        },
+        {
+            "id":2,
+            "username":"doctor",
+            "email":"baek@hospital.com"
+        },
+        {
+            "id":3,
+            "username":"doohan",
+            "email":"oyabon@umigwan.com"
+        },
+        {
+            "id":4,
+            "username":"shanhai",
+            "email":"pistol@white.com"
+        },
+        {
+            "id":5,
+            "username":"dd",
+            "email":"qas@white.com"
+        }        
+    ]
+}
