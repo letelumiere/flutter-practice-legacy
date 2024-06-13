@@ -1,6 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'product.dart';
+  
 void main() {
   runApp(const MyApp());
 }
@@ -29,75 +30,74 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  int _selectedIndex = 0;
-
+class _MyHomePageState extends State<MyHomePage> {
+  late Future<List<Product>> productList;
+  Dio dio = Dio();
+  
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(
-      () => setState(() => _selectedIndex = _tabController.index));
+    productList = getProductData();
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  Future<List<Product>> getProductData() async{
+    late List<Product> products;
+    try{
+      var response =  await dio.get("https://dummyjson.com/products");
+      products = response.data['products']
+        .map<Product>((json) => Product.fromJson(json))
+        .toList();
+      print("refreshed!");
+    }catch(e){
+      print(e);
+    }
+    return products;
+  }
+
+  Future<void> refreshData() async{
+    productList = getProductData();
+    setState((){});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title : const Text("app bar"),
+        title: const Text("Flutter App"),
       ),
-      body: _selectedIndex == 0 
-        ? tabContainer(context, Colors.indigo, "Friends Tab")
-        : _selectedIndex == 1
-          ? tabContainer(context, Colors.amber[600] as Color, "Chat Tab")
-          : tabContainer(context, Colors.blueGrey, "Setting Tab"),
-      bottomNavigationBar: SizedBox(
-        height: 90,
-        child: TabBar(
-          controller: _tabController,
-          labelColor: Colors.black,
-          tabs: [
-            Tab(
-              icon: Icon(
-                _selectedIndex ==0 ? Icons.person : Icons.person_2_outlined),
-              text: "Freinds",
-            ),
-            Tab(
-              icon: Icon(
-                _selectedIndex ==0 ? Icons.chat : Icons.chat_outlined),
-              text: "Chats",
-            ),
-            Tab(
-              icon: Icon(
-                _selectedIndex ==0 ? Icons.settings : Icons.settings_outlined),
-              text: "Settings",
-            ),          
-            ],
-        ),
+      body: RefreshIndicator(
+        onRefresh: () => refreshData(),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: FutureBuilder<List<Product>>(
+            future: productList,
+            builder: (BuildContext con, AsyncSnapshot snapshot){
+              if(!snapshot.hasData){
+                return const Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ));
+              }else{
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext cont, int index){
+                    var data = snapshot.data[index];
+                    return Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration( 
+                        border: Border.all(width: 1, color: Colors.black26),
+                      ),
+                      child: Text("${data.title}(${data.description})"),
+                    );
+                  },
+                );
+              }
+            },
+          )
+        )
       )
-    );
-  }
-
-  Widget tabContainer(BuildContext context, Color tabColor, String tabText){
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      color: tabColor,
-      child: Center(
-        child: Text(
-          tabText, 
-          style: const TextStyle(
-            color: Colors.white
-            ),
-        ),
-      ),
     );
   }
 }
