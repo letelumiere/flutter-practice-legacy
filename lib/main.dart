@@ -3,14 +3,25 @@ import 'package:project/notification.dart';
   
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const HomePage());
+  FlutterLocalNotification.init();
+  runApp(const MyApp());
 }
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MyApp  extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context){
+    return const MaterialApp(title: "Flutter App", home: HomePage());
+  }  
+}
 
+class HomePage extends StatefulWidget{
+  const HomePage({Key?key}) : super(key:key);
+  
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 
 class _HomePageState extends State<HomePage>{
   @override
@@ -31,7 +42,13 @@ class _HomePageState extends State<HomePage>{
       ),
       body: Center(
         child: TextButton(
-          onPressed: () => FlutterLocalNotification.showNotification(),
+          onPressed: () async{
+            try{
+              await FlutterLocalNotification.showNotification();
+            }catch(e){
+              print(e);
+            }
+          },
           child: const Text("알림 보내기"),
         ),
       ),

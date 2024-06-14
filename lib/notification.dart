@@ -5,8 +5,13 @@ class FlutterLocalNotification {
 
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = 
     FlutterLocalNotificationsPlugin();
+  
+  static bool _initialized = false;
 
-  static init() async{
+
+  static Future<void> init() async{
+    if(_initialized) return;
+
     AndroidInitializationSettings androidInitializationSettings =
       const AndroidInitializationSettings('mipmap/ic_launcher');
     
@@ -17,12 +22,13 @@ class FlutterLocalNotification {
         requestSoundPermission: false,
     );
 
-    InitializationSettings initializationSettings = InitializationSettings(
+    final InitializationSettings initializationSettings = InitializationSettings(
       android: androidInitializationSettings,
       iOS: iosInitializationSettings,
     );
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    _initialized = true;
   }
 
   static requestNotificationPermisson(){
@@ -32,6 +38,10 @@ class FlutterLocalNotification {
   }
 
   static Future<void> showNotification() async{
+    if (!_initialized) {
+      throw Exception('FlutterLocalNotificationsPlugin is not initialized.');
+    }
+
     const AndroidNotificationDetails androidNotificationDetails = 
       AndroidNotificationDetails('channel id', 'channel name',
         channelDescription: 'channel Descriptions',
