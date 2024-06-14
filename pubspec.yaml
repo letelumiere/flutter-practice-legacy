@@ -41,6 +41,10 @@ dependencies:
   shared_preferences: 
   rxdart:
   http:
+  webview_flutter: 
+  webview_flutter_android:
+  webview_flutter_wkwebview: 
+  webview_dart: ^1.0.1
 
 dev_dependencies:
   flutter_test:
