@@ -36,15 +36,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   flutter_local_notifications: 
-  dio:
-  youtube_player_flutter: 
+  #dio:
+  #youtube_player_flutter: 
   shared_preferences: 
   rxdart:
   http:
-  webview_flutter: 
-  webview_flutter_android:
-  webview_flutter_wkwebview: 
-  webview_dart: ^1.0.1
+  # webview_flutter: 
+  # webview_flutter_android:
+  # webview_flutter_wkwebview: 
+  # webview_dart: ^1.0.1
 
 dev_dependencies:
   flutter_test:
