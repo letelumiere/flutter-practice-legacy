@@ -1,7 +1,5 @@
-import "package:flutter/material.dart";
-import "package:project/successPage.dart";
-
-import "package:project/user.dart";
+import 'package:flutter/material.dart';
+import 'package:project/photoView.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,17 +10,52 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter App',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomePage(),
-        '/success': (context) => const SuccessPage(),
-      },
+      home: MainPage(),
     );
   }
 }
 
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  List<String> imagePaths = [
+    'https://cdn.pixabay.com/photo/2023/04/30/09/43/flower-7960192_1280.jpg',
+    'https://cdn.pixabay.com/photo/2023/04/30/22/01/ocean-7961695_1280.jpg',
+    'https://cdn.pixabay.com/photo/2023/05/21/07/59/iceberg-8008071_1280.jpg'
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('My App'),
+        ),
+        body: ListView.builder(
+          itemCount: imagePaths.length,
+          itemBuilder: (context, index) {
+            return GestureDetector( //각 image의 slider를 보여주기
+              onTap: () {
+                Navigator.of(context) 
+                    .push(MaterialPageRoute(builder: (context) {
+                  return PhotoViewPage(
+                      imagePaths: imagePaths, currentIndex: index);
+                }));
+              },
+              child: Image(
+                image: NetworkImage(imagePaths[index]),
+              ),
+            );
+          },
+        ));
+  }
+}
+/*
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -109,7 +142,7 @@ class _HomePageState extends State<HomePage> {
       onPressed: (){
         if(_key.currentState!.validate()){
           _key.currentState!.save();
-          Navigator.pushNamed(context, '/success', arguments: User(_username, _email));
+//          Navigator.pushNamed(context, '/success', arguments: User(_username, _email));
         }
       },
       child: Container(
@@ -118,5 +151,6 @@ class _HomePageState extends State<HomePage> {
       )
     );
   }
-    
-} 
+}
+*/  
+ 
