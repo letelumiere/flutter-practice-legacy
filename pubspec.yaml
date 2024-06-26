@@ -11,9 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  cached_network_image: 
-  intl:
-  kpostal: 
+  cached_network_image: ^3.2.3 
+  intl: ^0.19.0
+  kpostal: ^0.5.1
+  shared_preferences: ^2.2.2 
+  firebase_core: ^3.1.1
 
 dev_dependencies:
   flutter_test:
