@@ -1,8 +1,9 @@
+import 'package:example_project/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example_project/constants.dart';
 import 'package:example_project/item_details_page.dart';
-import 'package:example_project/model/product.dart';
+import 'package:example_project/models/product.dart';
 
 
 class ItemListPage extends StatefulWidget {
